@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,500;1,600&display=swap');
+
+*{
+    font-family: 'Poppins',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    background: url("loginpage.jpg");
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:110vh;
+    background: rgba(39,39,39,0.4);
+}
