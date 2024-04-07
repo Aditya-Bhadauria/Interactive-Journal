@@ -1,0 +1,33 @@
+/* Define the container element */
+.container {
+    display: flex; /* Use flexbox for layout */
+    min-height: 100vh; /* Set minimum height to 100 viewport height */
+    margin: 0; /* Remove margin for full-screen placement */
+  }
+  
+  /* Style the left and right columns */
+  .side-column {
+    flex: 0 0 20%; /* Set fixed width for side columns */
+    background-color: #f0f0f0; /* Optional background color */
+    padding: 10px; /* Add padding for content */
+  }
+  
+  /* Style the middle column */
+  .main-content {
+    flex: 1; /* Make middle column fill remaining space */
+    background-color: #fff; /* Optional background color */
+    padding: 20px; /* Add padding for content */
+  }
+  
+  /* Optional: Adjust for responsiveness */
+  @media (max-width: 768px) {
+    /* Adapt layout for smaller screens */
+    .container {
+      flex-direction: row; /* Stack columns vertically */
+    }
+    .side-column,
+    .main-content {
+      flex: 1; /* Make all columns equal width on small screens */
+    }
+  }
+  
