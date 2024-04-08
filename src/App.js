@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './Pages/Home'; // Import your page components
 import Journal from './Pages/Journal';
 import Task from './Pages/Task';
+import SignupLogin from './Pages/LoginPage';
 // import HomePage from './Pages/Home';
 import Navigation from './Pages/navigation';
 const App = () => {
@@ -24,6 +25,8 @@ const App = () => {
         <Route path="/" element={<HomePage />} />  {/* Map paths to components */}
         <Route path="/Journal" element={<Journal />} />
         <Route path="/task" element={<Task />} />
+        <Route path="/Login" element={<SignupLogin />} />
+
       </Routes> 
     </BrowserRouter>
   );

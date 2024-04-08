@@ -1,0 +1,16 @@
+.signup-login-container {
+    display: flex;
+    justify-content: center; /* Center the box horizontally */
+    align-items: center; /* Center the box vertically */
+    height: 100vh; /* Full-screen height for visual appeal */
+  }
+  
+  .signup-login-box {
+    background-color: #fff; /* White background for visual contrast */
+    border-radius: 10px; /* Rounded corners for aesthetic touch */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 30px; /* Generous padding for content spacing */
+    text-align: center; /* Center text within the box */
+    width: 400px; /* Adjust width as needed */
+  }
+  
