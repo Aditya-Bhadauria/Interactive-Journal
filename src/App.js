@@ -17,6 +17,8 @@ import Task from './Pages/Task';
 import SignupLogin from './Pages/LoginPage';
 // import HomePage from './Pages/Home';
 import Navigation from './Pages/navigation';
+import MyForm from './Pages/BackendTest'; 
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -25,7 +27,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />  {/* Map paths to components */}
         <Route path="/Journal" element={<Journal />} />
         <Route path="/task" element={<Task />} />
-        <Route path="/Login" element={<SignupLogin />} />
+        <Route path="/Login" element={<MyForm/>} />
 
       </Routes> 
     </BrowserRouter>
