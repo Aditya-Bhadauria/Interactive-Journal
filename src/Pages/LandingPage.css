@@ -1,0 +1,21 @@
+.landing-page-content {
+    display: flex; /* Arrange sections side-by-side */
+    flex-wrap: wrap; /* Allow sections to wrap if needed */
+    flex-direction: column;
+    
+  }
+  
+  .section {
+    width: 100%; /* Set width for each section */
+    padding: 0rem; /* Add some padding */
+    text-align: center; /* Center the content in each section */
+    
+  }
+  
+  .section img {
+    width: 100%; /* Make image full-width */
+    display: block; /* Ensure image takes up full space */
+  }
+  .section-text {
+    margin-top: 1rem; /* Add space between image and text */
+  }

@@ -2,10 +2,12 @@
 import Image1 from '../images/Samurai1.jpg'
 import Image2 from '../images/Samurai2.jpg'
 import Image3 from '../images/Samurai3.jpg'
+import Image4 from '../images/Journal.jpg'
 import React from 'react';
 import { useState, useEffect } from 'react';
 import '../App';
 import '../App.css';
+import './LandingPage.css'
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 
 
@@ -40,6 +42,25 @@ const HomePage = () => {
   }
 
   return (
+  <>
+    <div className="landing-page-content">
+    <section className="section journal">
+      <img src={Image4} alt="Journal" />
+      <div className="section-text">
+        <h2>Journal</h2>
+        <p>Capture your thoughts, experiences, and ideas in a beautiful, organized space.</p>
+      </div>
+    </section>
+
+    <section className="section tasks">
+      <img src={Image4} alt="Tasks" />
+      <div className="section-text">
+        <h2>Tasks</h2>
+        <p>Plan your day, manage your to-dos, and achieve your goals efficiently.</p>
+      </div>
+    </section>
+  </div>
+ 
     <section className='slider'>
       <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
       <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
@@ -54,9 +75,11 @@ const HomePage = () => {
         </div>
       ))}
     </section>
+  </>
   );
-    
+
 };
+
 
 
 

@@ -1,9 +1,10 @@
 .slider {
   position: relative;
-  height: 100vh; /* Adjust the height as needed */
+  height: 80vh; /* Adjust the height as needed */
   display: flex;
   justify-content: center;
   align-items: center;
+  border:2px solid black;
 }
 
 .left-arrow, .right-arrow {
