@@ -16,9 +16,10 @@ function Navigation() {
 
   return (
     <>
+    
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="#">
-          <img src={logo} alt="Logo" style={{ height: '75px', marginRight: '10px' }} />
+          <img src={logo} alt="Logo" style={{ height: '45px', marginRight: '10px' }} />
           ChronoLog
         </a>
 
@@ -44,6 +45,7 @@ function Navigation() {
         </div>
       </nav>
       <Modal show={showModal} close={closeModal} />
+    
     </>
   );
 }
