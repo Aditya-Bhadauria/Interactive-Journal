@@ -17,6 +17,7 @@ import Task from './Pages/Task';
 import SignupLogin from './Pages/LoginPage';
 // import HomePage from './Pages/Home';
 import Navigation from './Pages/navigation';
+import Footer from './Pages/Footer';
 import MyForm from './Pages/BackendTest'; 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/Login" element={<MyForm/>} />
 
       </Routes> 
+    <Footer/>
     </BrowserRouter>
   );
 };
