@@ -14,6 +14,9 @@ import "aos/dist/aos.css";
 import { motion, useScroll } from "framer-motion"
 
 
+
+
+
 import  Navigation  from '../Pages/navigation';
 import Footer from '../Pages/Footer';
 
@@ -34,6 +37,8 @@ const HomePage = () => {
   }, []);
 
   const { scrollYProgress } = useScroll();
+
+  
   
 
     const [current, setCurrent] = useState(0);
@@ -69,6 +74,7 @@ const HomePage = () => {
         <p>Capture your thoughts, experiences, and ideas in a beautiful, organized space.</p>
       </div>
     </section>
+    
     <section className="section tasks">
       <img src={Image4} alt="Tasks" />
       <div className="section-text">
