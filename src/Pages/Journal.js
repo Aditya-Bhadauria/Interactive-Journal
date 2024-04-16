@@ -32,6 +32,7 @@ const Journal = () => {
       />
     </div>
     
+    
   </div>
 
   );
