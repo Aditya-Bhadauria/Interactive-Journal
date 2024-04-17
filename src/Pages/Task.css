@@ -30,8 +30,3 @@
       flex: 1; /* Make all columns equal width on small screens */
     }
   }
-  .Calender{
-    z-index: -99;
-    text-decoration-line: none;
-  }
-  
