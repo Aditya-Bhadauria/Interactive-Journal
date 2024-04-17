@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import '../App';
 import '../App.css';
 import './LandingPage.css'
+import DrawerExample from './Drawer';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -26,7 +27,7 @@ const imageArray = [
     // Add your image URLs here
     Image1,
     Image2,
-    Image3
+    
     // ... more images
   ];
 
@@ -75,6 +76,7 @@ const HomePage = () => {
       </div>
     </section>
     
+    
     <section className="section tasks">
       <img src={Image4} alt="Tasks" />
       <div className="section-text">
@@ -85,6 +87,7 @@ const HomePage = () => {
   </div>
  
     <section className='slider'>
+      
       <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
       <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
       {imageArray.map((image, index) => (
@@ -96,11 +99,11 @@ const HomePage = () => {
             <img src={image} alt={`Slide ${index}`} className='image' />
           )}
         </div>
-      ))}
+      ))}    
     </section>
+    
   </>
   );
-
 };
 
 
