@@ -13,7 +13,7 @@ import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion, useScroll } from "framer-motion"
-
+import { Card, CardHeader, CardBody, CardFooter, Image,Stack,Heading,Text,Divider,Button,ButtonGroup, ChakraProvider } from '@chakra-ui/react'
 
 
 
@@ -36,6 +36,8 @@ const HomePage = () => {
     AOS.init();
     AOS.refresh();
   }, []);
+
+  
 
   const { scrollYProgress } = useScroll();
 
@@ -61,7 +63,7 @@ const HomePage = () => {
 
   return (
   <>
-    
+    <ChakraProvider>
     <motion.div
      className="progress-bar"
      style={{ scaleX: scrollYProgress }} Hello/> 
@@ -73,18 +75,54 @@ const HomePage = () => {
       <div className="section-text">
         <h1 className='huge-title'>   ChronoLog</h1>
         <p>Capture your thoughts, experiences, and ideas in a beautiful, organized space.</p>
+        <div>
+  <DrawerExample/>
+</div>
       </div>
     </section>
-    
-    
-    <section className="section tasks">
+
+    {/* <section className="section tasks">
       <img src={Image4} alt="Tasks" />
       <div className="section-text">
         <h2>Tasks</h2>
         <p>Plan your day, manage your to-dos, and achieve your goals efficiently.</p>
       </div>
-    </section>
+    </section> */}
   </div>
+  <div>
+  <Card maxW='sm'>
+  <CardBody>
+    <Image
+      src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+      alt='Green double couch with wooden legs'
+      borderRadius='lg'
+    />
+    <Stack mt='6' spacing='3'>
+      <Heading size='md'>Living room Sofa</Heading>
+      <Text>
+        This sofa is perfect for modern tropical spaces, baroque inspired
+        spaces, earthy toned spaces and for people who love a chic design with a
+        sprinkle of vintage design.
+      </Text>
+      <Text color='blue.600' fontSize='2xl'>
+        $450
+      </Text>
+    </Stack>
+  </CardBody>
+  <Divider />
+  <CardFooter>
+    <ButtonGroup spacing='2'>
+      <Button variant='solid' colorScheme='blue'>
+        Buy now
+      </Button>
+      <Button variant='ghost' colorScheme='blue'>
+        Add to cart
+      </Button>
+    </ButtonGroup>
+  </CardFooter>
+</Card>
+</div>
+
  
     <section className='slider'>
       
@@ -101,8 +139,9 @@ const HomePage = () => {
         </div>
       ))}    
     </section>
-    
+    </ChakraProvider>
   </>
+  
   );
 };
 

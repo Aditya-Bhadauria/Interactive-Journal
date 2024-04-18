@@ -28,7 +28,7 @@ import {
     return (
       <>
         <Button leftIcon={<AddIcon />} colorScheme='teal' onClick={onOpen}>
-          Create user
+          Join now
         </Button>
         <Drawer
           isOpen={isOpen}
@@ -53,8 +53,16 @@ import {
                     placeholder='Please enter user name'
                   />
                 </Box>
-  
                 <Box>
+                  <FormLabel htmlFor='username'>Password</FormLabel>
+                  <Input
+                    ref={firstField}
+                    id='username'
+                    placeholder='Please enter Your Password'
+                  />
+                </Box>
+  
+                {/* <Box>
                   <FormLabel htmlFor='url'>Url</FormLabel>
                   <InputGroup>
                     <InputLeftAddon>http://</InputLeftAddon>
@@ -65,18 +73,19 @@ import {
                     />
                     <InputRightAddon>.com</InputRightAddon>
                   </InputGroup>
-                </Box>
+                </Box> */}
   
                 <Box>
-                  <FormLabel htmlFor='owner'>Select Owner</FormLabel>
+                  <FormLabel htmlFor='owner'>Select Gender</FormLabel>
                   <Select id='owner' defaultValue='segun'>
-                    <option value='segun'>Segun Adebayo</option>
-                    <option value='kola'>Kola Tioluwani</option>
+                    <option value='segun'>Male</option>
+                    <option value='kola'>Female</option>
+                    <option value='kola'>Others</option>
                   </Select>
                 </Box>
   
                 <Box>
-                  <FormLabel htmlFor='desc'>Description</FormLabel>
+                  <FormLabel htmlFor='desc'>Description(Optional)</FormLabel>
                   <Textarea id='desc' />
                 </Box>
               </Stack>
