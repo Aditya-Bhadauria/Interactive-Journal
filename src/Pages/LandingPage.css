@@ -1,8 +1,7 @@
 .landing-page-content {
     display: flex; /* Arrange sections side-by-side */
     flex-wrap: wrap; /* Allow sections to wrap if needed */
-    flex-direction: column;
-    
+    flex-direction: column; 
   }
   
   .section {
@@ -45,7 +44,7 @@
     height: 10px;
     width: 100%;
     /* margin-left: 100px; */
-    background: rgb(104, 53, 12);
+    background: rgb(210, 233, 207);
     transform-origin: 0%;
     z-index: 10;
   }

@@ -3,6 +3,8 @@ import Image1 from '../images/Samurai1.jpg'
 import Image2 from '../images/Samurai2.jpg'
 import Image3 from '../images/Samurai3.jpg'
 import Image4 from '../images/Journal.jpg'
+import Image5 from '../images/Journaltab.jpg'
+import Image6 from '../images/Tasktab.jpg'
 import React from 'react';
 import { useState, useEffect } from 'react';
 import '../App';
@@ -13,7 +15,7 @@ import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion, useScroll } from "framer-motion"
-import { Card, CardHeader, CardBody, CardFooter, Image,Stack,Heading,Text,Divider,Button,ButtonGroup, ChakraProvider } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Image,Stack,Heading,Text,Divider,Button,ButtonGroup, ChakraProvider,SimpleGrid } from '@chakra-ui/react'
 
 
 
@@ -90,10 +92,12 @@ const HomePage = () => {
     </section> */}
   </div>
   <div>
-  <Card maxW='sm'>
+  <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(500px, 1fr))'>
+
+  <Card maxW='sw'>
   <CardBody>
     <Image
-      src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+      src={Image5}
       alt='Green double couch with wooden legs'
       borderRadius='lg'
     />
@@ -121,6 +125,38 @@ const HomePage = () => {
     </ButtonGroup>
   </CardFooter>
 </Card>
+<Card maxW='sw'>
+  <CardBody>
+    <Image
+      src={Image5}
+      alt='Green double couch with wooden legs'
+      borderRadius='lg'
+    />
+    <Stack mt='6' spacing='3'>
+      <Heading size='md'>Living room Sofa</Heading>
+      <Text>
+        This sofa is perfect for modern tropical spaces, baroque inspired
+        spaces, earthy toned spaces and for people who love a chic design with a
+        sprinkle of vintage design.
+      </Text>
+      <Text color='blue.600' fontSize='2xl'>
+        $450
+      </Text>
+    </Stack>
+  </CardBody>
+  <Divider />
+  <CardFooter>
+    <ButtonGroup spacing='2'>
+      <Button variant='solid' colorScheme='blue'>
+        Buy now
+      </Button>
+      <Button variant='ghost' colorScheme='blue'>
+        Add to cart
+      </Button>
+    </ButtonGroup>
+  </CardFooter>
+</Card>
+</SimpleGrid>
 </div>
 
  
