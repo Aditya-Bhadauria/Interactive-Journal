@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import '../App';
 import '../App.css';
 import './LandingPage.css'
-import DrawerExample from './Drawer';
+import Signup from './SignUp';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -78,7 +78,7 @@ const HomePage = () => {
         <h1 className='huge-title'>   ChronoLog</h1>
         <p>Capture your thoughts, experiences, and ideas in a beautiful, organized space.</p>
         <div>
-  <DrawerExample/>
+  <Signup/>
 </div>
       </div>
     </section>

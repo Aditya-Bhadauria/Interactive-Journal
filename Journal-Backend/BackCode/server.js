@@ -1,50 +1,88 @@
 const express = require('express');
-const cors = require('cors');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const dataModel = require('./Models/datamodel'); // Import your data model
+const cors = require('cors');
+const bcrypt = require('bcryptjs');
 
-// Assuming your db connection file is named 'db.js' in the same directory
-const connectDB = require('./Db'); // Connect to MongoDB using the previously created file 'db.js'
+// Replace with your MongoDB connection string
+const mongoURI = 'mongodb://localhost:27017/Chrono-Log';
 
 const app = express();
+
+// Connect to MongoDB
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.error(err));
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// User Schema
+const UserSchema = new mongoose.Schema({
+  username: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true }
+});
+
+// Hash password before saving user
+UserSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+const User = mongoose.model('User', UserSchema);
+
+// Signup API Endpoint
+app.post('/signup', async (req, res) => {
+  const { username, email, password } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+
+    const newUser = new User({ username, email, password });
+    const savedUser = await newUser.save();
+    res.json({ message: 'User created successfully', user: savedUser });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+// Login API Endpoint
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid Email or Password' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid Email or Password' });
+    }
+
+    // Implement JWT generation and sending here (not covered in this example)
+
+    res.json({ message: 'Login successful', user }); // Replace with JWT response
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
 const port = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(bodyParser.json()); // Enable parsing of JSON data from React
+app.listen(port, () => console.log(`Server running on port ${port}`));
 
-// Get all data
-app.get('/api/data', async (req, res) => {
-  try {
-    const data = await dataModel.find();
-    res.json(data);
-  } catch (error) {
-    console.error('Error fetching data:', error.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// Save new data (replace with your actual logic)
-app.post('/api/data', async (req, res) => {
-  const { name, age } = req.body; // Destructure data from request body
-  try {
-    const newData = new dataModel({ name, age });
-    await newData.save();
-    res.json({ message: 'Data saved successfully!' });
-  } catch (error) {
-    console.error('Error saving data:', error.message);
-    // Consider more specific error handling based on error type (e.g., validation error)
-    res.status(400).send('Error saving data');
-  }
-});
-
-(async () => {
-  try {
-    await connectDB(); // Connect to MongoDB before starting server
-    app.listen(port, () => console.log(`Server listening on port ${port}`));
-  } catch (error) {
-    console.error('Error starting server:', error.message);
-    process.exit(1); // Exit process on error
-  }
-})();
 
 

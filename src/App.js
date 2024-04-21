@@ -20,7 +20,8 @@ import Navigation from './Pages/navigation';
 import Footer from './Pages/Footer';
 import MyForm from './Pages/BackendTest'; 
 import { Drawer } from '@chakra-ui/react';
-import DrawerExample from './Pages/Drawer';
+import DrawerExample from './Pages/SignUp';
+import SignUp from './Pages/SignUp';
 
 const App = () => {
   return (
@@ -30,7 +31,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />  {/* Map paths to components */}
         <Route path="/Journal" element={<Journal />} />
         <Route path="/task" element={<Task />} />
-        <Route path="/Login" element={<MyForm/>} />
+        <Route path="/Signup" element={<SignUp/>} />
 
       </Routes> 
     <Footer/>

@@ -20,10 +20,48 @@ import {
   } from '@chakra-ui/react';
   import { AddIcon } from '@chakra-ui/icons'; // Assuming the AddIcon component is from Chakra UI
   import React, { useState } from 'react';
-  
-  function DrawerExample() {
+  import axios from 'axios';
+  function SignUp() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef()
+    const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+console.log({
+  username,
+  email,
+  password
+})
+    // Basic validation
+    if (!username || !email || !password) {
+      setErrorMessage('Please fill in all required fields');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/signup', {
+        username,
+        email,
+        password,
+      });
+
+      if (response.status) {
+        // Signup successful, handle success (e.g., redirect)
+        console.log('Signup successful!');
+      } else {
+        setErrorMessage('Signup failed. Please try again.');
+      }
+    } 
+    catch (error) {
+      console.error(error);
+      setErrorMessage('An error occurred. Please try again later.');
+    }
+  };
+
   
     return (
       <>
@@ -49,31 +87,30 @@ import {
                   <FormLabel htmlFor='username'>Name</FormLabel>
                   <Input
                     ref={firstField}
+                    value={username} onChange={(e) => setUsername(e.target.value)}
                     id='username'
                     placeholder='Please enter user name'
                   />
                 </Box>
                 <Box>
-                  <FormLabel htmlFor='username'>Password</FormLabel>
+                  <FormLabel htmlFor='Email'>Email</FormLabel>
                   <Input
                     
-                    id='username'
+                    value={email} onChange={(e) => setEmail(e.target.value)}
+                    id='email'
+                    placeholder='Please enter user email'
+                  />
+                </Box>
+                <Box>
+                  <FormLabel htmlFor='username'>Password</FormLabel>
+                  <Input
+                    value={password} onChange={(e) => setPassword(e.target.value)}
+                    id='password'
                     placeholder='Please enter Your Password'
                   />
                 </Box>
   
-                {/* <Box>
-                  <FormLabel htmlFor='url'>Url</FormLabel>
-                  <InputGroup>
-                    <InputLeftAddon>http://</InputLeftAddon>
-                    <Input
-                      type='url'
-                      id='url'
-                      placeholder='Please enter domain'
-                    />
-                    <InputRightAddon>.com</InputRightAddon>
-                  </InputGroup>
-                </Box> */}
+                
   
                 <Box>
                   <FormLabel htmlFor='owner'>Select Gender</FormLabel>
@@ -95,11 +132,11 @@ import {
               <Button variant='outline' mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme='blue'>Submit</Button>
+              <Button onClick={handleSubmit}colorScheme='blue'>Submit</Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
       </>
     )
   }
-  export default DrawerExample;
+  export default SignUp;
