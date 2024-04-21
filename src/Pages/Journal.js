@@ -21,8 +21,8 @@ const Journal = () => {
       <p>Content for the left side column.</p>
     </div>
     <div class="main-content">
-      <h2>Main Content Area</h2>
-      <p>This is the main content area of the webpage. It will take up the remaining space after the side columns.</p>
+      <h2> April 20, 2024</h2>
+      <p>Dear Diary</p>
       <Text mb='8px'>Value: {value}</Text>
       <Textarea
         value={value}
