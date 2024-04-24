@@ -42,8 +42,11 @@ const HomePage = () => {
   
 
   const { scrollYProgress } = useScroll();
-
-  
+const [username, setUsername] = useState(null);
+useEffect(() => {
+  const storedUsername = localStorage.getItem('username');
+  setUsername(storedUsername);
+}, []); // Empty dependency array ensures it runs only once on component mount
   
 
     const [current, setCurrent] = useState(0);
@@ -63,6 +66,9 @@ const HomePage = () => {
   }
   
 
+  
+  
+
   return (
   <>
     <ChakraProvider>
@@ -77,6 +83,9 @@ const HomePage = () => {
       <div className="section-text">
         <h1 className='huge-title'>   ChronoLog</h1>
         <p>Capture your thoughts, experiences, and ideas in a beautiful, organized space.</p>
+        {username && (
+        <p>Welcome, {username}!</p>
+      )}
         <div>
   <Signup/>
 </div>

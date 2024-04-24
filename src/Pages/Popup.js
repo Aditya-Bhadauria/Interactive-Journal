@@ -50,6 +50,8 @@ const Modal = ({ show, close, onLoginSuccess }) => {
       if (response.status === 200) {
         // Login successful, handle success (e.g., store token, redirect)
         console.log('Login successful!');
+        const username = response.data.username; // Assuming username is in response data
+        localStorage.setItem('username', username); // Store username in Local Storage
         if (onLoginSuccess) {
           onLoginSuccess(response.data); // Call optional callback prop for success handling (e.g., store token, redirect)
         } else {
