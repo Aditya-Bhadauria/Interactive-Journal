@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken'); // For JWT generation
 // Replace with your MongoDB connection string
 const mongoURI = 'mongodb://localhost:27017/Chrono-Log';
 
@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 });
+
 
 // Hash password before saving user
 UserSchema.pre('save', async function(next) {
@@ -71,9 +72,15 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid Email or Password' });
     }
 
+    const payload = { userId: user._id }; // Include relevant user data in the payload
+    const secretKey = '12345678'; // Replace with a strong secret key for signing
+    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); // Set an expiry time for the token
+    console.log(`this is backend token ${token}`);
+    
     // Implement JWT generation and sending here (not covered in this example)
 
-    res.json({ message: 'Login successful', user }); // Replace with JWT response
+    res.json({ message: 'Login successful', user,token }); // Replace with JWT response
+    
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server Error' });

@@ -1,28 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css'; // Make sure to create this CSS file for styling
 
-// const Modal = ({ show, close }) => {
-//   return (
-//     <div className="modal" style={{ display: show ? 'block' : 'none' }}>
-//       <div className="modal-content" onClick={e => e.stopPropagation()}>
-//         <span className="close" onClick={close}>×</span>
-//         <form>
-//           <h2>Login/Sign Up</h2>
-//           <input type="text" placeholder="Username" />
-//           <input type="text" placeholder="Email" />
-//           <input type="password" placeholder="Password" />
-//           <button type="submit">Submit</button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-
-
-// export default Modal;
-
-
 import axios from 'axios'; // Assuming you use Axios for requests
 
 const Modal = ({ show, close, onLoginSuccess }) => {
@@ -50,10 +28,17 @@ const Modal = ({ show, close, onLoginSuccess }) => {
       if (response.status === 200) {
         // Login successful, handle success (e.g., store token, redirect)
         console.log('Login successful!');
-        const username = response.data.username; // Assuming username is in response data
-        localStorage.setItem('username', username); // Store username in Local Storage
+        const username = response.data.user.username; // Assuming username is in response data
+        const jwtToken = response.data.token;
+        sessionStorage.setItem('username', username);
+        sessionStorage.setItem('jwtToken', jwtToken);
+        // console.log(`username${username}`);
+        // console.log(`jwttoken${jwtToken}`);
+        
         if (onLoginSuccess) {
           onLoginSuccess(response.data); // Call optional callback prop for success handling (e.g., store token, redirect)
+          
+
         } else {
           // You can close the modal or display a success message here
         }

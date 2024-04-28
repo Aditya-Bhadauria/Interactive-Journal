@@ -7,12 +7,25 @@ import { Link } from 'react-router-dom';
 import HomePage from './Home';
 import Journal from './Journal';
 import Task from './Task';
+import { Element, animateScroll as scroll } from 'react-scroll';
 
 function Navigation() {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
+
+  const handleSmoothScroll = (id) => {
+    // Optional: Add offset for header or navigation bar height
+    scroll.scrollTo({
+      containerId: 'main-content', // Adjust if needed
+      duration: 500, // Customize scroll duration
+      smooth: 'easeInOutQuad', // Choose animation type from react-scroll options
+      offset: -50, // Adjust offset for header/navigation height
+      id: id,
+    });
+  };
+
 
   return (
     <>
@@ -36,7 +49,7 @@ function Navigation() {
               <a className="nav-link" onClick={openModal} style={{ cursor: 'pointer' }}>Login/SignUp</a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/journal">Journal</Link>
+              <Link className="nav-link"onClick={() => handleSmoothScroll('content1')}>Journal</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/task">My Tasks</Link>

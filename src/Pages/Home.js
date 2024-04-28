@@ -15,8 +15,9 @@ import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion, useScroll } from "framer-motion"
-import { Card, CardHeader, CardBody, CardFooter, Image,Stack,Heading,Text,Divider,Button,ButtonGroup, ChakraProvider,SimpleGrid } from '@chakra-ui/react'
-
+import { Card, CardHeader, CardBody, CardFooter, Image,Stack,Heading,Text,Divider,Button,ButtonGroup, ChakraProvider,SimpleGrid, Center } from '@chakra-ui/react'
+import { Link } from 'react-router-dom';
+import { Element } from 'react-scroll';
 
 
 
@@ -42,11 +43,8 @@ const HomePage = () => {
   
 
   const { scrollYProgress } = useScroll();
-const [username, setUsername] = useState(null);
-useEffect(() => {
-  const storedUsername = localStorage.getItem('username');
-  setUsername(storedUsername);
-}, []); // Empty dependency array ensures it runs only once on component mount
+  const username = sessionStorage.getItem('username');
+console.log(username)
   
 
     const [current, setCurrent] = useState(0);
@@ -64,11 +62,6 @@ useEffect(() => {
   if (!Array.isArray(imageArray) || imageArray.length <= 0) {
     return null;
   }
-  
-
-  
-  
-
   return (
   <>
     <ChakraProvider>
@@ -111,26 +104,27 @@ useEffect(() => {
       borderRadius='lg'
     />
     <Stack mt='6' spacing='3'>
-      <Heading size='md'>Living room Sofa</Heading>
+    <Element id="content1">
+      <Heading size='md'>JOURNAL</Heading>
       <Text>
-        This sofa is perfect for modern tropical spaces, baroque inspired
-        spaces, earthy toned spaces and for people who love a chic design with a
-        sprinkle of vintage design.
+      Jot down your thoughts, experiences, and emotions and store them safely online. Our website lets you create and save journal entries with ease, ensuring your memories are preserved for years to come.
       </Text>
-      <Text color='blue.600' fontSize='2xl'>
+      {/* <Text color='blue.600' fontSize='2xl'>
         $450
-      </Text>
+      </Text> */}
+      </Element>
     </Stack>
+    
   </CardBody>
   <Divider />
-  <CardFooter>
+  <CardFooter >
     <ButtonGroup spacing='2'>
       <Button variant='solid' colorScheme='blue'>
-        Buy now
+        <Link to="/journal"> Navigate to Journal</Link>
       </Button>
-      <Button variant='ghost' colorScheme='blue'>
+      {/* <Button variant='ghost' colorScheme='blue'>
         Add to cart
-      </Button>
+      </Button> */}
     </ButtonGroup>
   </CardFooter>
 </Card>
@@ -142,25 +136,20 @@ useEffect(() => {
       borderRadius='lg'
     />
     <Stack mt='6' spacing='3'>
-      <Heading size='md'>Living room Sofa</Heading>
+      <Heading size='md'>TASK MANAGER</Heading>
       <Text>
-        This sofa is perfect for modern tropical spaces, baroque inspired
-        spaces, earthy toned spaces and for people who love a chic design with a
-        sprinkle of vintage design.
+      Create task lists, set due dates, and track your progress seamlessly alongside your daily reflections.  Organize your thoughts and conquer your goals, all within the same space
       </Text>
-      <Text color='blue.600' fontSize='2xl'>
+      {/* <Text color='blue.600' fontSize='2xl'>
         $450
-      </Text>
+      </Text> */}
     </Stack>
   </CardBody>
   <Divider />
-  <CardFooter>
+  <CardFooter >
     <ButtonGroup spacing='2'>
       <Button variant='solid' colorScheme='blue'>
-        Buy now
-      </Button>
-      <Button variant='ghost' colorScheme='blue'>
-        Add to cart
+        <Link to="/task"> Navigate to Tasks</Link>
       </Button>
     </ButtonGroup>
   </CardFooter>
