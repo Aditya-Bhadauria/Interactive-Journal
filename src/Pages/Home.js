@@ -17,7 +17,7 @@ import "aos/dist/aos.css";
 import { motion, useScroll } from "framer-motion"
 import { Card, CardHeader, CardBody, CardFooter, Image,Stack,Heading,Text,Divider,Button,ButtonGroup, ChakraProvider,SimpleGrid, Center } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
-import { Element } from 'react-scroll';
+// import { Element } from 'react-scroll';
 
 
 
@@ -104,7 +104,7 @@ console.log(username)
       borderRadius='lg'
     />
     <Stack mt='6' spacing='3'>
-    <Element id="content1">
+    
       <Heading size='md'>JOURNAL</Heading>
       <Text>
       Jot down your thoughts, experiences, and emotions and store them safely online. Our website lets you create and save journal entries with ease, ensuring your memories are preserved for years to come.
@@ -112,7 +112,7 @@ console.log(username)
       {/* <Text color='blue.600' fontSize='2xl'>
         $450
       </Text> */}
-      </Element>
+      
     </Stack>
     
   </CardBody>
@@ -157,7 +157,11 @@ console.log(username)
 </SimpleGrid>
 </div>
 
- 
+<div style={{ textAlign: "center", fontFamily: "Georgia, serif"}}>
+  <h1 style={{ fontSize: "25px" }}>"Day by day, what you choose, what you think, and what you do is who you become" — Heraclitus</h1>
+</div>
+
+
     <section className='slider'>
       
       <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />

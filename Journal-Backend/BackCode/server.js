@@ -38,6 +38,86 @@ UserSchema.pre('save', async function(next) {
 
 const User = mongoose.model('User', UserSchema);
 
+const journalSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  // Add other fields as needed, e.g., date (type: Date), author (type: String)
+});
+
+const Journal = mongoose.model('Journal', journalSchema);
+
+// Journal Router
+const journalRouter = express.Router();
+
+journalRouter.get('/', async (req, res) => {
+  try {
+    const journals = await Journal.find();
+    res.json(journals);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET a single journal by ID
+journalRouter.get('/:id', async (req, res) => {
+  try {
+    const journal = await Journal.findById(req.params.id);
+    if (!journal) {
+      return res.status(404).json({ message: 'Journal not found' });
+    }
+    res.json(journal);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST a new journal
+journalRouter.post('/', async (req, res) => {
+  const newJournal = new Journal(req.body);
+  try {
+    const savedJournal = await newJournal.save();
+    res.status(201).json(savedJournal);
+  } catch (err) {
+    res.status(400).json({ error: err.message }); // Handle validation errors appropriately
+  }
+});
+
+// PUT update a journal by ID
+journalRouter.put('/:id', async (req, res) => {
+  const updates = req.body;
+  const allowedUpdates = ['title', 'content']; // Adjust as needed
+  const isValidUpdate = Object.keys(updates).every(update => allowedUpdates.includes(update));
+  if (!isValidUpdate) {
+    return res.status(400).json({ error: 'Invalid update fields' });
+  }
+  try {
+    const updatedJournal = await Journal.findByIdAndUpdate(req.params.id, updates, { new: true });
+    if (!updatedJournal) {
+      return res.status(404).json({ message: 'Journal not found' });
+    }
+    res.json(updatedJournal);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// DELETE a journal by ID
+journalRouter.delete('/:id', async (req, res) => {
+  try {
+    const deletedJournal = await Journal.findByIdAndDelete(req.params.id);
+    if (!deletedJournal) {
+      return res.status(404).json({ message: 'Journal not found' });
+    }
+    res.json({ message: 'Journal deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
+
+
 // Signup API Endpoint
 app.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
@@ -88,6 +168,8 @@ app.post('/login', async (req, res) => {
 });
 
 const port = process.env.PORT || 5000;
+
+app.use('/api/journals', journalRouter);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 

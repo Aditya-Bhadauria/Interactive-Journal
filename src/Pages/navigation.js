@@ -7,7 +7,30 @@ import { Link } from 'react-router-dom';
 import HomePage from './Home';
 import Journal from './Journal';
 import Task from './Task';
-import { Element, animateScroll as scroll } from 'react-scroll';
+// import SlideEx from './About';
+import { Fade, ScaleFade, Slide, SlideFade, Collapse,useDisclosure,Button,Box,Lorem, ChakraProvider } from '@chakra-ui/react'
+
+function SlideEx() {
+  const { isOpen, onToggle } = useDisclosure();
+
+  return (
+    <>
+      <Button onClick={onToggle}>Click Me</Button>
+      <Slide direction='bottom' in={isOpen} style={{ zIndex: 10 }}>
+        <Box
+          p='40px'
+          color='white'
+          mt='4'
+          bg='teal.500'
+          rounded='md'
+          shadow='md'
+        >
+          <h1>Hello Guys HOw Are yu</h1>
+        </Box>
+      </Slide>
+    </>
+  );
+}
 
 function Navigation() {
   const [showModal, setShowModal] = useState(false);
@@ -15,21 +38,11 @@ function Navigation() {
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
-  const handleSmoothScroll = (id) => {
-    // Optional: Add offset for header or navigation bar height
-    scroll.scrollTo({
-      containerId: 'main-content', // Adjust if needed
-      duration: 500, // Customize scroll duration
-      smooth: 'easeInOutQuad', // Choose animation type from react-scroll options
-      offset: -50, // Adjust offset for header/navigation height
-      id: id,
-    });
-  };
-
+ 
 
   return (
     <>
-    
+    <ChakraProvider>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="#">
           <img src={logo} alt="Logo" style={{ height: '45px', marginRight: '10px' }} />
@@ -46,10 +59,10 @@ function Navigation() {
               <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" onClick={openModal} style={{ cursor: 'pointer' }}>Login/SignUp</a>
+              <a className="nav-link" onClick={openModal} style={{ cursor: 'pointer' }}>Login</a>
             </li>
             <li className="nav-item">
-              <Link className="nav-link"onClick={() => handleSmoothScroll('content1')}>Journal</Link>
+            <Link className="nav-link" onClick={() => <SlideEx/> }>About</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/task">My Tasks</Link>
@@ -57,8 +70,9 @@ function Navigation() {
           </ul>
         </div>
       </nav>
+      
       <Modal show={showModal} close={closeModal} />
-    
+      </ChakraProvider>
     </>
   );
 }
