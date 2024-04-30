@@ -1,52 +1,12 @@
-// import React from 'react';
-// import './Journal.css';
-// import Gojo from '../images/GojoChibi.jpg'
-// import { Textarea, Text} from '@chakra-ui/react'
-
-// const Journal = () => {
-//   let [value, setValue] = React.useState('')
-
-//   let handleInputChange = (e) => {
-//     let inputValue = e.target.value
-//     setValue(inputValue)
-//   }
-//   return (
-//     <div class="container">
-//     <div class="side-column">
-//       <div>
-//       <img src={Gojo} alt="Gojo" style={{ height: '250px', marginRight: '10px' }} />
-      
-//       </div>
-//       <h2>Aditya Bhadauria</h2>
-//       <p>Content for the left side column.</p>
-//     </div>
-//     <div class="main-content">
-//       <h2> April 20, 2024</h2>
-//       <p>Dear Diary</p>
-//       <Text mb='8px'>Value: {value}</Text>
-//       <Textarea
-//         value={value}
-//         onChange={handleInputChange}
-//         placeholder='Here is a sample placeholder'
-//         style={{ height: '600px', width: '800px' }}
-//       />
-//     </div>
-    
-    
-//   </div>
-
-//   );
-  
-// };
-
-// export default Journal;
-
 
 import React, { useState, useEffect } from 'react';
 import './Journal.css';
 import Gojo from '../images/GojoChibi.jpg';
-import { Textarea } from '@chakra-ui/react';
+import { ChakraProvider, Textarea } from '@chakra-ui/react';
 import axios from 'axios'; // For making API requests
+import { Box, Button, Text } from '@chakra-ui/react';
+
+
 
 const Journal = () => {
   const [title, setTitle] = useState(''); // State for journal title
@@ -105,6 +65,7 @@ const Journal = () => {
   }, []); // Empty dependency array: fetch only once on mount
 
   return (
+    <ChakraProvider>
     <div className="container">
       <div className="side-column">
         <div>
@@ -113,7 +74,7 @@ const Journal = () => {
         <h2>Aditya Bhadauria</h2>
         <p>Content for the left side column.</p>
       </div>
-      <div className="main-content">
+      <Box className="main-content">
         <h2> April 20, 2024</h2>
         <p>Dear Diary</p>
 
@@ -125,27 +86,28 @@ const Journal = () => {
           placeholder="Here is a sample placeholder"
           style={{ height: '600px', width: '800px' }}
         />
-        <button onClick={handleSubmit}>
+        <Button onClick={handleSubmit} colorScheme="blue" mt={4}>
           {selectedJournalId ? 'Update Journal' : 'Create Journal'}
-        </button>
-      </div>
+        </Button>
+      </Box>
 
       {journals.length > 0 && (
-        <ul>
-          {journals.map((journal) => (
-            <li key={journal._id}>
-              <h3>{journal.title}</h3>
-              <button onClick={() => handleSelectJournal(journal)}>Edit</button>
-              <button onClick={() => handleDelete(journal._id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-      )}
+  <Box mt={4}>
+    {journals.map((journal) => (
+      <Box key={journal._id} borderWidth="1px" borderRadius="lg" p={4} mt={2}>
+        <Text fontSize="xl" fontWeight="bold">{journal.title}</Text>
+        <Button colorScheme="teal" size="sm" onClick={() => handleSelectJournal(journal)} mt={2}>Edit</Button>
+        <Button colorScheme="red" size="sm" onClick={() => handleDelete(journal._id)} ml={2} mt={2}>Delete</Button>
+      </Box>
+    ))}
+  </Box>
+)}
     </div>
-
+    </ChakraProvider>
   );
-
+  
 };
+
 
 export default Journal;
 
