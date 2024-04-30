@@ -45,7 +45,7 @@
 import React, { useState, useEffect } from 'react';
 import './Journal.css';
 import Gojo from '../images/GojoChibi.jpg';
-import { Textarea, Text } from '@chakra-ui/react';
+import { Textarea } from '@chakra-ui/react';
 import axios from 'axios'; // For making API requests
 
 const Journal = () => {
@@ -59,8 +59,8 @@ const Journal = () => {
     e.preventDefault();
     try {
       const response = selectedJournalId
-        ? await axios.put(`/api/journals${selectedJournalId}`, { title, content }) // Update
-        : await axios.post('/api/journals', { title, content }); // Create
+        ? await axios.put(`http://localhost:5000/api/journals/${selectedJournalId}`, { title, content }) // Update
+        : await axios.post('http://localhost:5000/api/journals', { title, content }); // Create
       console.log(selectedJournalId ? 'Journal updated' : 'Journal created:', response.data);
       setTitle(''); // Clear form after submission
       setContent('');
@@ -74,7 +74,7 @@ const Journal = () => {
   // Function to fetch all journals (READ)
   const fetchJournals = async () => {
     try {
-      const response = await axios.get('/api/journals');
+      const response = await axios.get('http://localhost:5000/api/journals');
       setJournals(response.data);
     } catch (error) {
       console.error('Error fetching journals:', error);
@@ -84,7 +84,7 @@ const Journal = () => {
   // Function to handle delete operation (DELETE)
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/journals/${id}`);
+      await axios.delete(`http://localhost:5000/api/journals/${id}`);
       console.log('Journal deleted');
       fetchJournals(); // Re-fetch journals to update the list
     } catch (error) {
@@ -144,10 +144,11 @@ const Journal = () => {
     </div>
 
   );
-  
+
 };
 
 export default Journal;
+
 
 
 
