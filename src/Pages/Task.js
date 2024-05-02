@@ -64,8 +64,9 @@ const TaskManagement = () => {
       <img src={Gojo} alt="Gojo" style={{ height: '250px', marginRight: '10px' }} />
       
       </div>
-      <h2>Aditya Bhadauria</h2>
-      <p>Content for the left side column.</p>
+      <h1>Welcome,</h1>
+        <h2>Aditya Bhadauria</h2>
+        <p>"a passionate student on a journey through the exciting world of software development"</p>
     </div>
     <div className="main-content">
     <div className="Calender">

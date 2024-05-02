@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken'); // For JWT generation
-// Replace with your MongoDB connection string
+const jwt = require('jsonwebtoken'); 
 const mongoURI = 'mongodb://localhost:27017/Chrono-Log';
 
 const app = express();
@@ -41,7 +40,8 @@ const User = mongoose.model('User', UserSchema);
 const journalSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
-  // Add other fields as needed, e.g., date (type: Date), author (type: String)
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+  
 });
 
 const Journal = mongoose.model('Journal', journalSchema);
@@ -115,9 +115,6 @@ journalRouter.delete('/:id', async (req, res) => {
 });
 
 
-
-
-
 // Signup API Endpoint
 app.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
@@ -137,6 +134,8 @@ app.post('/signup', async (req, res) => {
   }
 });
 
+
+
 // Login API Endpoint
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -152,14 +151,13 @@ app.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid Email or Password' });
     }
 
-    const payload = { userId: user._id }; // Include relevant user data in the payload
-    const secretKey = '12345678'; // Replace with a strong secret key for signing
-    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); // Set an expiry time for the token
+    const payload = { userId: user._id }; 
+    const secretKey = '12345678'; 
+    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); 
     console.log(`this is backend token ${token}`);
     
-    // Implement JWT generation and sending here (not covered in this example)
-
-    res.json({ message: 'Login successful', user,token }); // Replace with JWT response
+    
+    res.json({ message: 'Login successful', user,token });
     
   } catch (err) {
     console.error(err);
@@ -167,11 +165,24 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.post('/logout', async (req, res) => {
+  // Check for a valid JWT token or other authentication mechanism here (optional)
+  try {
+    // Clear any server-side session data associated with the user (optional)
+    res.json({ message: 'Logout successful' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+
 const port = process.env.PORT || 5000;
 
 app.use('/api/journals', journalRouter);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
 
 
 

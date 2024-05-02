@@ -3,16 +3,29 @@ import React, { useState, useEffect } from 'react';
 import './Journal.css';
 import Gojo from '../images/GojoChibi.jpg';
 import { ChakraProvider, Textarea } from '@chakra-ui/react';
-import axios from 'axios'; // For making API requests
-import { Box, Button, Text } from '@chakra-ui/react';
+import axios from 'axios'; 
+import { Box, Button, Text ,Flex} from '@chakra-ui/react';
 
 
 
 const Journal = () => {
-  const [title, setTitle] = useState(''); // State for journal title
-  const [content, setContent] = useState(''); // State for journal content
-  const [journals, setJournals] = useState([]); // To store fetched journals
-  const [selectedJournalId, setSelectedJournalId] = useState(null); // To store selected journal ID
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState(''); 
+  const [journals, setJournals] = useState([]); 
+  const [selectedJournalId, setSelectedJournalId] = useState(null); 
+  const [currentDate, setCurrentDate] = useState('');
+
+  const username = sessionStorage.getItem('username');
+
+  useEffect(() => {
+    // Set current date when component mounts
+    const today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    setCurrentDate(today.toLocaleDateString(undefined, options));
+    fetchJournals();
+  }, []);
+
+
 
   // Function to handle form submission (CREATE or UPDATE)
   const handleSubmit = async (e) => {
@@ -46,23 +59,35 @@ const Journal = () => {
     try {
       await axios.delete(`http://localhost:5000/api/journals/${id}`);
       console.log('Journal deleted');
-      fetchJournals(); // Re-fetch journals to update the list
+      fetchJournals(); 
     } catch (error) {
       console.error('Error deleting journal:', error);
     }
   };
+  const handleDownload = (journal) => {
+    const element = document.createElement("a");
+    const file = new Blob([journal.title + "\n\n" + journal.content], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = `${journal.title}.txt`;
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
+  };
 
-  // Function to handle selecting a journal for update
+
+
+
+
+  
   const handleSelectJournal = (journal) => {
     setTitle(journal.title);
     setContent(journal.content);
-    setSelectedJournalId(journal._id); // Update selected journal ID
+    setSelectedJournalId(journal._id);
   };
 
-  // useEffect hook to fetch journals on component mount
+  
   useEffect(() => {
     fetchJournals();
-  }, []); // Empty dependency array: fetch only once on mount
+  }, []); 
 
   return (
     <ChakraProvider>
@@ -71,12 +96,13 @@ const Journal = () => {
         <div>
           <img src={Gojo} alt="Gojo" style={{ height: '250px', marginRight: '10px' }} />
         </div>
-        <h2>Aditya Bhadauria</h2>
-        <p>Content for the left side column.</p>
+        <h1>Welcome,</h1>
+        <h2>{username}</h2>
+        <p>"a passionate student on a journey through the exciting world of software development"</p>
       </div>
       <Box className="main-content">
-        <h2> April 20, 2024</h2>
-        <p>Dear Diary</p>
+        <h2> {currentDate}</h2>
+        <p>Work With Journals</p>
 
         <label htmlFor="title">Title:</label>
         <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
@@ -89,6 +115,7 @@ const Journal = () => {
         <Button onClick={handleSubmit} colorScheme="blue" mt={4}>
           {selectedJournalId ? 'Update Journal' : 'Create Journal'}
         </Button>
+        
       </Box>
 
       {journals.length > 0 && (
@@ -98,6 +125,7 @@ const Journal = () => {
         <Text fontSize="xl" fontWeight="bold">{journal.title}</Text>
         <Button colorScheme="teal" size="sm" onClick={() => handleSelectJournal(journal)} mt={2}>Edit</Button>
         <Button colorScheme="red" size="sm" onClick={() => handleDelete(journal._id)} ml={2} mt={2}>Delete</Button>
+        <Button colorScheme="green" size="sm" onClick={() => handleDownload(journal)} ml={2} mt={2}>Download</Button>
       </Box>
     ))}
   </Box>
@@ -110,7 +138,6 @@ const Journal = () => {
 
 
 export default Journal;
-
 
 
 
